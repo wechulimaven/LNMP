@@ -47,9 +47,11 @@ class MakePayment(APIView):
         print("ACCESS headers", headers)
         payload = {
                     "BusinessShortCode": 174379,
-                    "Password": 'MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjEwOTE3MTYzOTQy',
-                    "Timestamp": "20210917163942",
-                    
+                    "Password": decoded_password,
+                    # 'MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjEwOTE3MTgzNzI4',
+                            
+                    # "Timestamp": "20210917163942",
+                    "Timestamp": formate_time,
                     "TransactionType": settings.TRANSACTION_TYPE,
                     "Amount": amount,
                     "PartyA": phone,
@@ -95,3 +97,22 @@ class MakePayment(APIView):
 # "amount":"1",
 # "phone_number":"254799143482"
 # }
+
+# Headers
+# Key: Authorization
+# Value: Basic RHlrQXMzSW9LcEFzRElrU1NuRzVZdUc0M29HRjJKRWk6YnZGNzRHMGFYS1pxR2NUag==
+# ​
+# Body
+#   {
+#     "BusinessShortCode": 174379,
+#     "Password": "MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjEwOTE3MTgzNzI4",
+#     "Timestamp": "20210917183728",
+#     "TransactionType": "CustomerPayBillOnline",
+#     "Amount": 1,
+#     "PartyA": 254708374149,
+#     "PartyB": 174379,
+#     "PhoneNumber": 254708374149,
+#     "CallBackURL": "https://mydomain.com/path",
+#     "AccountReference": "CompanyXLTD",
+#     "TransactionDesc": "Payment of X" 
+#   }

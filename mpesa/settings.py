@@ -86,6 +86,8 @@ DATABASES = {
 }
 
 
+
+
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
 
@@ -110,7 +112,8 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+# TIME_ZONE = 'UTC'
+TIME_ZONE = 'Africa/Nairobi'
 
 USE_I18N = True
 
@@ -125,14 +128,24 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-BUSNESS_SHORT_CODE=config('BUSNESS_SHORT_CODE')
-TRANSACTION_TYPE = config('TRANSACTION_TYPE')
-TRANSACTION_DESCRIPTION= config('TRANSACTION_DESCRIPTION')
-ACCOUNT_REFERENCE = config('ACCOUNT_REFERENCE')
-API_RESOURCE_URL = config('API_RESOURCE_URL')
-ACCESS_TOKEN_URL = config('ACCESS_TOKEN_URL')
-LIPANAMPESA_PASSKEY = config('LIPANAMPESA_PASSKEY')
-CONSUMER_KEY = config('CONSUMER_KEY')
-CONSUMER_SECRETE = config('CONSUMER_KEY')
-
+# BUSNESS_SHORT_CODE=config('BUSNESS_SHORT_CODE')
+# TRANSACTION_TYPE = config('TRANSACTION_TYPE')
+# TRANSACTION_DESCRIPTION= config('TRANSACTION_DESCRIPTION')
+# ACCOUNT_REFERENCE = config('ACCOUNT_REFERENCE')
+# API_RESOURCE_URL = config('API_RESOURCE_URL')
+# ACCESS_TOKEN_URL = config('ACCESS_TOKEN_URL')
+# LIPANAMPESA_PASSKEY = config('LIPANAMPESA_PASSKEY')
+# CONSUMER_KEY = config('CONSUMER_KEY')
+# CONSUMER_SECRETE = config('CONSUMER_KEY')
+BUSNESS_SHORT_CODE='174379'
+TRANSACTION_TYPE = 'CustomerPayBillOnline'
+TRANSACTION_DESCRIPTION= 'Payment of X'
+ACCOUNT_REFERENCE = 'CompanyXLTD'
+API_RESOURCE_URL = 'https://sandbox.safaricom.co.ke/mpesa/stkpush/v1/processrequest'
+# API_RESOURCE_URL = 'https://sandbox.safaricom.co.ke/mpesa/stkpushquery/v1/query'
+# ACCESS_TOKEN_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
+ACCESS_TOKEN_URL = 'https://sandbox.safaricom.co.ke/oauth/v1/generate?grant_type=client_credentials'
+LIPANAMPESA_PASSKEY = 'bfb279f9aa9bdbcf158e97dd71a467cd2e0c893059b10f78e6b72ada1ed2c919'
+CONSUMER_KEY = 'DykAs3IoKpAsDIkSSnG5YuG43oGF2JEi'
+CONSUMER_SECRETE = 'bvF74G0aXKZqGcTj'
 
