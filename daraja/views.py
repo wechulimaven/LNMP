@@ -13,6 +13,8 @@ from django.conf import settings
 
 import json
 
+from .models import MpesaCallBack
+
 # Create your views here.
 class TestView(APIView):
     def get(self, request, format=None):
@@ -71,21 +73,38 @@ class MakePayment(APIView):
 
         print("MPSEA RESPONSE", string_object)
 
+        if 'errorCode' in string_object:
+            print('ERROR', string_object['errorMessage'])
+            pass
+            # return Response(string_object['errorMessage'])
 
-        merchant_request_id=  string_object["MerchantRequestID"]
-        checkout_request_id =  string_object["CheckoutRequestID"]
-        response_code =  string_object["ResponseCode"]
-        response_description =  string_object["ResponseDescription"]
-        customer_message =  string_object["CustomerMessage"]
+        else:
+            merchant_request_id=  string_object["MerchantRequestID"]
+            checkout_request_id =  string_object["CheckoutRequestID"]
+            response_code =  string_object["ResponseCode"]
+            response_description =  string_object["ResponseDescription"]
+            customer_message =  string_object["CustomerMessage"]
 
-        data = {
+            data = {
+                "MerchantRequestID": merchant_request_id,
+                "CheckoutRequestID": checkout_request_id,
+                "ResponseCode": response_code,
+                "ResponseDescription": response_description,
+                "CustomerMessage": customer_message,
+            }
+            
 
-            "MerchantRequestID": merchant_request_id,
-            "CheckoutRequestID": checkout_request_id,
-            "ResponseCode": response_code,
-            "ResponseDescription": response_description,
-            "CustomerMessage": customer_message,
+            save = MpesaCallBack.objects.create(
+                merchant_request_id = merchant_request_id,
+                checkout_request_id = checkout_request_id,
+                response_code = response_code,
+                response_description = response_description,
+            )
+            
 
-        }
+            return data
 
-        return data
+# {
+# "amount":"1",
+# "phone_number":"254799143482"
+# }
