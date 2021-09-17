@@ -21,7 +21,6 @@ class TestView(APIView):
 
         formate_time = formatDateTime()
         decoded_password = generate_password(formate_time)
-        # print("aaccaAAYAYA", access_token)
         return Response({"access_token": access_token, "password": decoded_password})
 
 class MakePayment(APIView):
@@ -47,15 +46,11 @@ class MakePayment(APIView):
 
         print("ACCESS headers", headers)
         payload = {
-                    # "BusinessShortCode": settings.BUSNESS_SHORT_CODE,
                     "BusinessShortCode": 174379,
-                    # "Password": decoded_password,
                     "Password": 'MTc0Mzc5YmZiMjc5ZjlhYTliZGJjZjE1OGU5N2RkNzFhNDY3Y2QyZTBjODkzMDU5YjEwZjc4ZTZiNzJhZGExZWQyYzkxOTIwMjEwOTE3MTYzOTQy',
                     "Timestamp": "20210917163942",
-                    # "Timestamp": formate_time,
-                    # "TransactionType": "CustomerPayBillOnline",
+                    
                     "TransactionType": settings.TRANSACTION_TYPE,
-                    # "Amount": 1,
                     "Amount": amount,
                     "PartyA": phone,
                     
