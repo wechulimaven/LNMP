@@ -11,4 +11,6 @@ class LNMOnlineAPIView(ListCreateAPIView):
     # permission_classes = [IsAdminUser]
     def create(self, request):
         print('MPESACALLBACK', request.data)
+        mpesa_body =request.body.decode('utf-8')
+        print("MPESA BODY", mpesa_body)
         return request.data

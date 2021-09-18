@@ -184,3 +184,23 @@ def confirmation(request):
 # "amount":"1",
 # "phone_number":"254799143482"
 # }
+# {'Body': 
+#     {'stkCallback': 
+#         {
+    #          'MerchantRequestID': '20978-12743857-1', 
+    #         'CheckoutRequestID': 'ws_CO_180920211500594867', 
+    #         'ResultCode': 0, 
+    #         'ResultDesc': 'The service request is processed successfully.', 
+    #         'CallbackMetadata': 
+        #         {
+        #       'Item':[
+        #                 {'Name': 'Amount', 'Value': 1.0}, 
+        #                 {'Name': 'MpesaReceiptNumber', 'Value': 'PII733HXHJ'}, 
+        #                 {'Name': 'Balance'}, 
+        #                 {'Name': 'TransactionDate', 'Value': 20210918150127}, 
+        #                 {'Name': 'PhoneNumber', 'Value': 254799143482}
+        #             ]
+        #         }
+        #     }
+#    }
+# }
