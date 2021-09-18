@@ -135,7 +135,7 @@ def validation(request):
 
 class Confirmation(APIView):
     @csrf_exempt
-    def get(self, request, *args, **kwargs):
+    def create(self, request, *args, **kwargs):
         mpesa_body =request.body.decode('utf-8')
         mpesa_payment = json.loads(mpesa_body)
         print('MPESA CALLBACK BODY', mpesa_payment)
