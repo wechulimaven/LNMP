@@ -1,3 +1,4 @@
 from django.contrib import admin
+from mpesacallbackAPI.models import LNMOnline
 
-# Register your models here.
+admin.site.register(LNMOnline)

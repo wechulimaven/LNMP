@@ -97,12 +97,14 @@ class MakePayment(APIView):
             }
             
 
-            save = MpesaCallBack.objects.create(
+            model_save = MpesaCallBack.objects.create(
                 merchant_request_id = merchant_request_id,
                 checkout_request_id = checkout_request_id,
                 response_code = response_code,
                 response_description = response_description,
             )
+
+            model_save.save()
             
 
             return data
