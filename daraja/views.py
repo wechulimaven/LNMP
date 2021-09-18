@@ -3,6 +3,7 @@ import requests
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
+from django.http import HttpResponse, JsonResponse
 
 from .access_token import generate_access_token
 
@@ -13,7 +14,9 @@ from django.conf import settings
 
 import json
 
-from .models import MpesaCallBack
+from django.views.decorators.csrf import csrf_exempt
+
+from .models import MpesaCallBack, MpesaPayment
 
 # Create your views here.
 class TestView(APIView):
@@ -103,6 +106,78 @@ class MakePayment(APIView):
             
 
             return data
+
+
+@csrf_exempt
+def register_urls(request):
+    access_token = generate_access_token()
+    api_url = "https://sandbox.safaricom.co.ke/mpesa/c2b/v1/registerurl"
+    headers = {"Authorization": "Bearer %s" % access_token}
+    options = {"ShortCode": settings.BUSNESS_SHORT_CODE,
+               "ResponseType": "Completed",
+               "ConfirmationURL": "https://c34c-197-156-137-140.ngrok.io/api/v1/confirm",
+               "ValidationURL": "https://c34c-197-156-137-140.ngrok.io/api/v1/validation"}
+    response = requests.post(api_url, json=options, headers=headers)
+    return HttpResponse(response.text)
+    
+@csrf_exempt
+def call_back(request):
+    pass
+
+@csrf_exempt
+def validation(request):
+    context = {
+        "ResultCode": 0,
+        "ResultDesc": "Accepted"
+    }
+    return JsonResponse(dict(context))
+
+
+class Confirmation(APIView):
+    @csrf_exempt
+    def get(self, request, *args, **kwargs):
+        mpesa_body =request.body.decode('utf-8')
+        mpesa_payment = json.loads(mpesa_body)
+        payment = MpesaPayment(
+            first_name=mpesa_payment['FirstName'],
+            last_name=mpesa_payment['LastName'],
+            middle_name=mpesa_payment['MiddleName'],
+            description=mpesa_payment['TransID'],
+            phone_number=mpesa_payment['MSISDN'],
+            amount=mpesa_payment['TransAmount'],
+            reference=mpesa_payment['BillRefNumber'],
+            organization_balance=mpesa_payment['OrgAccountBalance'],
+            type=mpesa_payment['TransactionType'],
+        )
+        payment.save()
+        context = {
+            "ResultCode": 0,
+            "ResultDesc": "Accepted"
+        }
+        return JsonResponse(dict(context))
+
+
+@csrf_exempt
+def confirmation(request):
+    mpesa_body =request.body.decode('utf-8')
+    mpesa_payment = json.loads(mpesa_body)
+    payment = MpesaPayment(
+        first_name=mpesa_payment['FirstName'],
+        last_name=mpesa_payment['LastName'],
+        middle_name=mpesa_payment['MiddleName'],
+        description=mpesa_payment['TransID'],
+        phone_number=mpesa_payment['MSISDN'],
+        amount=mpesa_payment['TransAmount'],
+        reference=mpesa_payment['BillRefNumber'],
+        organization_balance=mpesa_payment['OrgAccountBalance'],
+        type=mpesa_payment['TransactionType'],
+    )
+    payment.save()
+    context = {
+        "ResultCode": 0,
+        "ResultDesc": "Accepted"
+    }
+    return JsonResponse(dict(context))
 
 # {
 # "amount":"1",

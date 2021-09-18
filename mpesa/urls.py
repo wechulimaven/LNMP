@@ -14,11 +14,17 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-from daraja.views import TestView, MakePayment
+from django.urls import path, include
+from daraja.views import TestView, MakePayment, register_urls, call_back, validation, Confirmation
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', TestView.as_view()), 
-    path('api/v1/lnm/', MakePayment.as_view())
+    path('api/v1/lnm/', MakePayment.as_view()),
+    path('api/v1/register/', register_urls),
+    path('api/v1/callback/', call_back),
+    path('api/v1/validation/', validation),
+    path('api/v1/confirm/', Confirmation.as_view()),
+
+    path('api/v1/payments/', include("mpesacallbackAPI.api.urls"))
 ]
