@@ -15,4 +15,4 @@ class LNMOnlineAPIView(ListCreateAPIView):
         # print('MPESACALLBACK', request.data)
         
         
-        return request.data
+        return mpesa_body
