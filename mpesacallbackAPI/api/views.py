@@ -1,7 +1,7 @@
 from rest_framework.response import Response
 
 from rest_framework.generics import ListCreateAPIView
-# from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, AllowAny
 
 from .serializers import LNMOnlineSerializer
 from mpesacallbackAPI.models import LNMOnline
@@ -14,6 +14,7 @@ import pytz
 class LNMOnlineAPIView(ListCreateAPIView):
     queryset = LNMOnline.objects.all()
     serializer_class = LNMOnlineSerializer
+    permission_classes = [AllowAny]
     # permission_classes = [IsAdminUser]
 
     # def create(self, request):
@@ -95,15 +96,6 @@ class LNMOnlineAPIView(ListCreateAPIView):
 
 
         our_model = LNMOnline.objects.create(
-            # MerchantRequestID=merchant_request_id,
-            # CheckoutRequestID=checkout_request_id,
-            # ResultCode=result_code,
-            # MpesaReceiptNumber=mpesa_receipt_number,
-            # PhoneNumber=phone_number,
-            # TransactionDate=formated_transaction_date,
-            # Amount=amount,
-            # ResultDes=Result_des
-
             CheckoutRequestID=checkout_request_id,
             MerchantRequestID=merchant_request_id,
             Amount=amount,
