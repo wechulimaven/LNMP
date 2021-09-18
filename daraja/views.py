@@ -63,7 +63,7 @@ class MakePayment(APIView):
                     
                     "PartyB": settings.BUSNESS_SHORT_CODE,
                     "PhoneNumber": phone,
-                    "CallBackURL": "https://mydomain.com/path",
+                    "CallBackURL": "https://lipa-online-payments.herokuapp.com/api/v1/confirm/",
                     "AccountReference": settings.ACCOUNT_REFERENCE,
                     "TransactionDesc": settings.TRANSACTION_DESCRIPTION 
 
@@ -138,6 +138,7 @@ class Confirmation(APIView):
     def get(self, request, *args, **kwargs):
         mpesa_body =request.body.decode('utf-8')
         mpesa_payment = json.loads(mpesa_body)
+        print('MPESA CALLBACK BODY', mpesa_payment)
         payment = MpesaPayment(
             first_name=mpesa_payment['FirstName'],
             last_name=mpesa_payment['LastName'],
