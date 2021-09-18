@@ -10,7 +10,7 @@ class LNMOnlineAPIView(ListCreateAPIView):
     serializer_class = LNMOnlineSerializer
     # permission_classes = [IsAdminUser]
     def create(self, request):
-        mpesa_body =request.body.decode('utf-8')
+        # mpesa_body =request.body.decode('utf-8')
         # print("MPESA BODY", mpesa_body)
         # print('MPESACALLBACK', request.data)
 
