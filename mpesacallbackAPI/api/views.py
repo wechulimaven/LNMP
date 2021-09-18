@@ -45,7 +45,7 @@ class LNMOnlineAPIView(ListCreateAPIView):
 
         save_model.save()
 
-        return mpesa_body
+        return save_model
 #         {'Body':
 #     {'stkCallback':
 #         {

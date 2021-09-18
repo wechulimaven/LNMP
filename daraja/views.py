@@ -40,16 +40,16 @@ class MakePayment(APIView):
 
     def make_mpesa_payment_request(self, amount: str, phone: str) -> dict:
         access_token = generate_access_token()
-        print("ACCESS YOKEN", access_token)
+        # print("ACCESS YOKEN", access_token)
         formate_time = formatDateTime()
-        print("ACCESS formatDateTime", formate_time)
+        # print("ACCESS formatDateTime", formate_time)
         decoded_password = generate_password(formate_time)
-        print("ACCESS decoded_password", decoded_password)
+        # print("ACCESS decoded_password", decoded_password)
         headers = {
                 "Authorization": "Bearer %s" % access_token
                 }
 
-        print("ACCESS headers", headers)
+        # print("ACCESS headers", headers)
         payload = {
                     "BusinessShortCode": 174379,
                     "Password": decoded_password,
@@ -68,13 +68,13 @@ class MakePayment(APIView):
                     "TransactionDesc": settings.TRANSACTION_DESCRIPTION 
 
                 }
-        print("ACCESS payload", payload)
+        # print("ACCESS payload", payload)
         response = requests.post(settings.API_RESOURCE_URL, headers = headers, json = payload)
 
         string_response = response.text
         string_object = json.loads(string_response)
 
-        print("MPSEA RESPONSE", string_object)
+        # print("MPSEA RESPONSE", string_object)
 
         if 'errorCode' in string_object:
             print('ERROR', string_object['errorMessage'])
