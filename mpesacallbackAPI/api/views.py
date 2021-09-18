@@ -11,3 +11,4 @@ class LNMOnlineAPIView(ListCreateAPIView):
     # permission_classes = [IsAdminUser]
     def create(self, request):
         print('MPESACALLBACK', request.data)
+        return request.data

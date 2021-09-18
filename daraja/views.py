@@ -63,7 +63,7 @@ class MakePayment(APIView):
                     
                     "PartyB": settings.BUSNESS_SHORT_CODE,
                     "PhoneNumber": phone,
-                    "CallBackURL": "https://lipa-online-payments.herokuapp.com/api/v1/confirm/",
+                    "CallBackURL": "https://lipa-online-payments.herokuapp.com/api/v1/payments/lnm/",
                     "AccountReference": settings.ACCOUNT_REFERENCE,
                     "TransactionDesc": settings.TRANSACTION_DESCRIPTION 
 
@@ -115,8 +115,8 @@ def register_urls(request):
     headers = {"Authorization": "Bearer %s" % access_token}
     options = {"ShortCode": settings.BUSNESS_SHORT_CODE,
                "ResponseType": "Completed",
-               "ConfirmationURL": "https://c34c-197-156-137-140.ngrok.io/api/v1/confirm",
-               "ValidationURL": "https://c34c-197-156-137-140.ngrok.io/api/v1/validation"}
+               "ConfirmationURL": "https://lipa-online-payments.herokuapp.com/api/v1/confirm",
+               "ValidationURL": "https://lipa-online-payments.herokuapp.com/api/v1/validation"}
     response = requests.post(api_url, json=options, headers=headers)
     return HttpResponse(response.text)
     
