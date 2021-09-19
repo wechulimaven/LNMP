@@ -9,6 +9,8 @@ from mpesacallbackAPI.models import LNMOnline
 from datetime import datetime
 import pytz
 
+import json
+
 
 
 class LNMOnlineAPIView(ListCreateAPIView):
@@ -55,62 +57,74 @@ class LNMOnlineAPIView(ListCreateAPIView):
     #     save_model.save()
 
     #     return data
-    def create(self, request):
-        print(request.data, "this is request.data")
-        merchant_request_id = request.data["Body"]["stkCallback"]["MerchantRequestID"]
-        print(merchant_request_id, "this should be MerchantRequestID")
-        checkout_request_id = request.data["Body"]["stkCallback"]["CheckoutRequestID"]
-        result_code = request.data["Body"]["stkCallback"]["ResultCode"]
-        result_description = request.data["Body"]["stkCallback"]["ResultDesc"]
-        amount = request.data["Body"]["stkCallback"]["CallbackMetadata"]["Item"][0][
-            "Value"
-        ]
-        print(amount, "this should be an amount")
-        mpesa_receipt_number = request.data["Body"]["stkCallback"]["CallbackMetadata"][
-            "Item"
-        ][1]["Value"]
-        print(mpesa_receipt_number, "this should be an mpesa_receipt_number")
 
-        balance = ""
-        transaction_date = request.data["Body"]["stkCallback"]["CallbackMetadata"][
-            "Item"
-        ][3]["Value"]
-        print(transaction_date, "this should be an transaction_date")
+    def get(self, request, *args, **kwargs):
+        mpesa_body =request.body.decode('utf-8')
+        mpesa_payment = json.loads(mpesa_body)
 
-        phone_number = request.data["Body"]["stkCallback"]["CallbackMetadata"]["Item"][
-            4
-        ]["Value"]
-        print(phone_number, "this should be an phone_number")
+        callback = self.getMpesaCallBack( mpesa_payments=mpesa_payment)
 
-        
-        str_transaction_date = str(transaction_date)
-        print(str_transaction_date, "this should be an str_transaction_date")
+        # print(request.data, "this is request.data")
+        # merchant_request_id = request.data["Body"]["stkCallback"]["MerchantRequestID"]
+        # print(merchant_request_id, "this should be MerchantRequestID")
+        # checkout_request_id = request.data["Body"]["stkCallback"]["CheckoutRequestID"]
+        # result_code = request.data["Body"]["stkCallback"]["ResultCode"]
+        # result_description = request.data["Body"]["stkCallback"]["ResultDesc"]
+        # amount = request.data["Body"]["stkCallback"]["CallbackMetadata"]["Item"][0][
+        #     "Value"
+        # ]
+        # print(amount, "this should be an amount")
+        # mpesa_receipt_number = request.data["Body"]["stkCallback"]["CallbackMetadata"][
+        #     "Item"
+        # ][1]["Value"]
+        # print(mpesa_receipt_number, "this should be an mpesa_receipt_number")
 
-        transaction_datetime = datetime.strptime(str_transaction_date, "%Y%m%d%H%M%S")
-        print(transaction_datetime, "this should be an transaction_datetime")
+        # balance = ""
+        # transaction_date = request.data["Body"]["stkCallback"]["CallbackMetadata"][
+        #     "Item"
+        # ][3]["Value"]
+        # print(transaction_date, "this should be an transaction_date")
 
-        
-        aware_transaction_datetime = pytz.utc.localize(transaction_datetime)
-        print(aware_transaction_datetime, "this should be an aware_transaction_datetime")
-
-
-
-        our_model = LNMOnline.objects.create(
-            CheckoutRequestID=checkout_request_id,
-            MerchantRequestID=merchant_request_id,
-            Amount=amount,
-            ResultCode=result_code,
-            ResultDesc=result_description,
-            MpesaReceiptNumber=mpesa_receipt_number,
-            TransactionDate=aware_transaction_datetime,
-            PhoneNumber=phone_number,
-        )
-
-        our_model.save()
+        # phone_number = request.data["Body"]["stkCallback"]["CallbackMetadata"]["Item"][
+        #     4
+        # ]["Value"]
+        # print(phone_number, "this should be an phone_number")
 
         
+        # str_transaction_date = str(transaction_date)
+        # print(str_transaction_date, "this should be an str_transaction_date")
 
-        return Response({"OurResultDesc": "YEEY!!! It worked!"})
+        # transaction_datetime = datetime.strptime(str_transaction_date, "%Y%m%d%H%M%S")
+        # print(transaction_datetime, "this should be an transaction_datetime")
+
+        
+        # aware_transaction_datetime = pytz.utc.localize(transaction_datetime)
+        # print(aware_transaction_datetime, "this should be an aware_transaction_datetime")
+
+
+
+        # our_model = LNMOnline.objects.create(
+        #     CheckoutRequestID=checkout_request_id,
+        #     MerchantRequestID=merchant_request_id,
+        #     Amount=amount,
+        #     ResultCode=result_code,
+        #     ResultDesc=result_description,
+        #     MpesaReceiptNumber=mpesa_receipt_number,
+        #     TransactionDate=aware_transaction_datetime,
+        #     PhoneNumber=phone_number,
+        # )
+
+        # our_model.save()
+
+        
+
+        # return Response({"OurResultDesc": "YEEY!!! It worked!"})
+
+    def getMpesaCallBack(self, mpesa_payments):
+        
+        print('MPeSA BODY', mpesa_payments)
+
+
 #         {'Body':
 #     {'stkCallback':
 #         {
