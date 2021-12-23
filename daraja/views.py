@@ -29,7 +29,7 @@ class TestView(APIView):
         return Response({"access_token": access_token, "password": decoded_password})
 
 class MakePayment(APIView):
-    
+
     def post(self, request, *args, **kwargs):
         requestData = request.data
         amount = requestData["amount"]

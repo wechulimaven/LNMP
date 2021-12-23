@@ -16,6 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from daraja.views import TestView, MakePayment, register_urls, call_back, validation, Confirmation
+from ussd.views import MpesaUSSD
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,6 +26,8 @@ urlpatterns = [
     path('api/v1/callback/', call_back),
     path('api/v1/validation/', validation),
     path('api/v1/confirm/', Confirmation.as_view()),
+
+    path('api/v1/ussd/', MpesaUSSD.as_view()),
 
     path('api/v1/payments/', include("mpesacallbackAPI.api.urls"))
 ]

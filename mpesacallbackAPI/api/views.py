@@ -19,50 +19,50 @@ class LNMOnlineAPIView(ListCreateAPIView):
     permission_classes = [AllowAny]
     # permission_classes = [IsAdminUser]
 
-    # def create(self, request):
+    def create(self, request):
 
-    #     data = request.data
+        data = request.data
 
-    #     print("RESPONSE DETA", data)
+        print("RESPONSE DETA", data)
 
-    #     merchant_request_id = data['Body']['stkCallback']['MerchantRequestID']
-    #     checkout_request_id = data['Body']['stkCallback']['CheckoutRequestID']
-    #     result_code = data['Body']['stkCallback']['ResultCode']
-    #     amount = data['Body']['stkCallback']['CallbackMetadata']['item'][0]['Value']
-    #     Result_des = data['Body']['stkCallback']['CallbackMetadata']['item'][2]['Value']
-    #     mpesa_receipt_number = data['Body']['stkCallback']['CallbackMetadata']['item'][1]['Value']
-    #     transaction_date = data['Body']['stkCallback']['CallbackMetadata']['item'][3]['Value']
-    #     phone_number = data['Body']['stkCallback']['CallbackMetadata']['item'][4]['Value']
+        merchant_request_id = data['Body']['stkCallback']['MerchantRequestID']
+        checkout_request_id = data['Body']['stkCallback']['CheckoutRequestID']
+        result_code = data['Body']['stkCallback']['ResultCode']
+        amount = data['Body']['stkCallback']['CallbackMetadata']['item'][0]['Value']
+        Result_des = data['Body']['stkCallback']['CallbackMetadata']['item'][2]['Value']
+        mpesa_receipt_number = data['Body']['stkCallback']['CallbackMetadata']['item'][1]['Value']
+        transaction_date = data['Body']['stkCallback']['CallbackMetadata']['item'][3]['Value']
+        phone_number = data['Body']['stkCallback']['CallbackMetadata']['item'][4]['Value']
 
-    #     str_date = str(transaction_date)
-    #     formated_transaction_date = datetime.strptime(str_date, "%Y%m%d%H%M%S")
+        str_date = str(transaction_date)
+        formated_transaction_date = datetime.strptime(str_date, "%Y%m%d%H%M%S")
 
-    #     print('MPESACALLBACK AMOUNT', amount)
-    #     print('MPESACALLBACK mpesa_receipt_number', mpesa_receipt_number)
-    #     print('MPESACALLBACK phone_number', phone_number)
-    #     print('MPESACALLBACK merchant_request_id', merchant_request_id)
-    #     print('MPESACALLBACK result_code', result_code)
+        print('MPESACALLBACK AMOUNT', amount)
+        print('MPESACALLBACK mpesa_receipt_number', mpesa_receipt_number)
+        print('MPESACALLBACK phone_number', phone_number)
+        print('MPESACALLBACK merchant_request_id', merchant_request_id)
+        print('MPESACALLBACK result_code', result_code)
 
-    #     save_model = LNMOnline.objects.create(
-            # MerchantRequestID=merchant_request_id,
-            # CheckoutRequestID=checkout_request_id,
-            # ResultCode=result_code,
-            # MpesaReceiptNumber=mpesa_receipt_number,
-            # PhoneNumber=phone_number,
-            # TransactionDate=formated_transaction_date,
-            # Amount=amount,
-            # ResultDes=Result_des
-    #     )
+        save_model = LNMOnline.objects.create(
+            MerchantRequestID=merchant_request_id,
+            CheckoutRequestID=checkout_request_id,
+            ResultCode=result_code,
+            MpesaReceiptNumber=mpesa_receipt_number,
+            PhoneNumber=phone_number,
+            TransactionDate=formated_transaction_date,
+            Amount=amount,
+            ResultDes=Result_des
+        )
 
-    #     save_model.save()
+        save_model.save()
 
-    #     return data
+        return data
 
-    def get(self, request, *args, **kwargs):
-        mpesa_body =request.body.decode('utf-8')
-        mpesa_payment = json.loads(mpesa_body)
+    # def get(self, request, *args, **kwargs):
+    #     mpesa_body =request.body.decode('utf-8')
+    #     mpesa_payment = json.loads(mpesa_body)
 
-        callback = self.getMpesaCallBack( mpesa_payments=mpesa_payment)
+    #     callback = self.getMpesaCallBack( mpesa_payments=mpesa_payment)
 
         # print(request.data, "this is request.data")
         # merchant_request_id = request.data["Body"]["stkCallback"]["MerchantRequestID"]

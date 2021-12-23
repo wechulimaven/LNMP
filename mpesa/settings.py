@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     # 'rest_auth',
     'daraja',
     'mpesacallbackAPI',
+    'ussd'
 ]
 
 MIDDLEWARE = [
